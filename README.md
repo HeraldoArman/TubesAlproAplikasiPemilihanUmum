@@ -1,8 +1,8 @@
 # TubesAlproAplikasiPemilihanUmum
  
-## Program ini ditujukan untuk menyelesaikan tugas besar mata kuliah algrotima pemrograman semester 2
+Program ini ditujukan untuk menyelesaikan tugas besar mata kuliah algrotima pemrograman semester 2
 
-## Program yang dibuat adalah Aplikasi Pemilihan umum dengan spesifikasi seperti berikut
+Program yang dibuat adalah Aplikasi Pemilihan umum dengan spesifikasi seperti berikut
 
 ### Deskripsi
 Aplikasi digunakan untuk melakukan pemilihan umum calon legislatif dan partai tertentu. Pengguna aplikasi ini adalah pemilih dan juga petugas kpu.
