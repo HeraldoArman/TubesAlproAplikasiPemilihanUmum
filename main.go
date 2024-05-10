@@ -11,7 +11,6 @@ type AnggotaParlemen struct {
 	nama string
 	partai string
 	suara int
-
 }
 
 type PemilihTetap struct {
@@ -24,10 +23,13 @@ type DaftarPemilih [NMAX]PemilihTetap
 
 
 func main() {
-	var pemilih DaftarPemilih
-	fmt.Println(pemilih[0].nama)
-	print_waktu()
-	fmt.Println(cek_rentang_waktu())
+	fmt.Print("\033[H\033[2J")
+	//var pemilih DaftarPemilih
+	//fmt.Println(pemilih[0].nama)
+	//print_waktu()
+	//fmt.Println(cek_rentang_waktu())
+	//cetak_main_menu()
+	//fmt.Println(process_input_main_menu())
 }
 
 
@@ -84,3 +86,32 @@ func cetak_main_menu(){
 	fmt.Println("4. Exit")
 }
 
+
+
+func process_input_main_menu() int{
+	var x string
+	var jalan bool = true
+	for jalan{
+		fmt.Scan(&x)
+		if x == "panitia"{
+			return 5
+		} else if x == "1"{
+			return 1
+		} else if x == "2"{
+			return 2
+		} else if x == "3"{
+			return 3
+		} else if x == "4"{
+			return 4
+		} else{
+			fmt.Print("\033[H\033[2J")
+			cetak_main_menu()
+			fmt.Println("Input tidak benar, silahkan masukkan kembali input yang benar")
+		}
+	}
+	return 0
+}
+
+func memilih_anggota_parlemen(){
+	
+}
