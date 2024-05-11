@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -21,15 +22,15 @@ type PemilihTetap struct {
 type DaftarCalonAnggotaParlemen [NMAX]AnggotaParlemen
 type DaftarPemilih [NMAX]PemilihTetap
 
-
+//masih belum selesai
 func main() {
+	var masukan_main_menu int
+
 	fmt.Print("\033[H\033[2J")
-	//var pemilih DaftarPemilih
-	//fmt.Println(pemilih[0].nama)
-	//print_waktu()
-	//fmt.Println(cek_rentang_waktu())
-	//cetak_main_menu()
-	//fmt.Println(process_input_main_menu())
+	cetak_main_menu()
+	masukan_main_menu = process_input_main_menu()
+	
+
 }
 
 
@@ -62,14 +63,12 @@ func cek_rentang_waktu() bool{
         fmt.Println("Format tanggal awal tidak valid:", err)
     }
 
-
 	fmt.Println("masukkan rentang waktu akhir dd/mm/yyyy")
 	rentang2 = input_rentang_waktu()
 	cek_akhir, err := time.Parse("02/01/2006", rentang2)
 	if err != nil {
         fmt.Println("Format tanggal akhir tidak valid:", err)
     }
-
 
 	//mengecek tanggal hari ini
 	hari_ini := time.Now()
@@ -79,11 +78,23 @@ func cek_rentang_waktu() bool{
 
 func cetak_main_menu(){
 	fmt.Println("Selamat datang di aplikasi pemilihan umum")
+	print_waktu()
 	fmt.Println("Silahkan masukkan opsi yang ingin anda pilih")
 	fmt.Println("1. Memilih anggota parlemen")
 	fmt.Println("2. List calon anggota")
 	fmt.Println("3. Pencarian data calon anggota")
 	fmt.Println("4. Exit")
+}
+
+func cetak_menu_panitia(){
+	fmt.Println("Selamat datang di menu panitia")
+	print_waktu()
+	fmt.Println("Silahkan masukkan opsi yang ingin anda pilih")
+	fmt.Println("1. Menginput anggota parlemen baru")
+	fmt.Println("2. Menghapus anggota parlemen")
+	fmt.Println("3. Mengedit anggota parlemen")
+	fmt.Println("4. Menghapus data parlemen")
+	fmt.Println("5. Mengubah rentang waktu pemilihan")
 }
 
 
@@ -112,6 +123,45 @@ func process_input_main_menu() int{
 	return 0
 }
 
-func memilih_anggota_parlemen(){
-	
+
+
+//fungsi ini masih belom selesai
+func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size int, data_pemilih *DaftarPemilih){
+	var input string
+	var ada bool
+	var jalan = true
+	if cek_rentang_waktu(){
+		fmt.Println("Anda tidak sedang berada di masa pemilihan, Silahkan kembali saat masa pemilihan sedang berlangsung.")
+	} else{
+		for jalan{
+			ada = false
+			for !ada{
+				fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih (spasi) kandidat_yang_dipilih'")
+				fmt.Scan(&input)
+				if input == "-1"{
+					jalan = false
+					break
+				}
+				kata := strings.Split(input, " ")
+				//nama_pemilih = kata[0]
+				//nama_pilihan = kata[1]
+				for i := 0; i < size; i++{
+					if Data_Parlemen[i].nama == kata[1]{
+						Data_Parlemen[i].suara++
+						ada = true
+						for j := 0; j < NMAX; j++{
+							if data_pemilih[j].nama == ""{
+								data_pemilih[j].nama = kata[0]
+								data_pemilih[j].pilihan = kata[1]
+								break
+							}
+						}
+					}
+				}
+				if !ada{
+					fmt.Println("Kandidat yang anda pilih tidak ada, silahkan pilih kembali")
+				}
+			}
+		}
+	}
 }
