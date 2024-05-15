@@ -165,7 +165,7 @@ func menambah_data_pemilih(data_pemilih *DaftarPemilih, nama, pilihan string){
 		if data_pemilih[i].nama == ""{
 			data_pemilih[i].nama = nama
 			data_pemilih[i].pilihan = pilihan
-			break
+			i = size + 10
 		}
 	}
 }
@@ -214,4 +214,121 @@ func menghapus_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size 
 			idx = i
 		}
 	}
+
+	if ada{
+		for i := idx; i < *size - 1; i++{
+			Data_Parlemen[i] = Data_Parlemen[i+1]
+		}
+		*size--
+	}
 }
+
+func swap_string(s1, s2 *string){
+	var temp string
+	temp = *s1
+	*s1 = *s2
+	*s2 = temp
+}
+
+func swap_int(s1, s2 *int){
+	var temp int
+	temp = *s1
+	*s1 = *s2
+	*s2 = temp
+}
+
+func menambilkan_data_terurut_berdasarkan_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
+	var max_idx int
+	for i := 0; i < size-1; i++{
+		max_idx = i
+		for j := 0; j < size; j++{
+			if Data_Parlemen[j].suara > Data_Parlemen[max_idx].suara{
+				max_idx = j
+			}
+		}
+		if max_idx != i{
+			swap_string(&Data_Parlemen[i].nama, &Data_Parlemen[max_idx].nama)
+			swap_string(&Data_Parlemen[i].partai, &Data_Parlemen[max_idx].partai)
+			swap_int(&Data_Parlemen[i].suara, &Data_Parlemen[max_idx].suara)
+		}
+	}
+	fmt.Println("NAMA |  PARTAI  |  SUARA")
+
+	for k := 0; k < size; k++{
+		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara)
+	}
+}
+
+func menambilkan_data_terurut_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
+	var max_idx int
+	for i := 0; i < size-1; i++{
+		max_idx = i
+		for j := 0; j < size; j++{
+			if Data_Parlemen[j].nama > Data_Parlemen[max_idx].nama{
+				max_idx = j
+			}
+		}
+		if max_idx != i{
+			swap_string(&Data_Parlemen[i].nama, &Data_Parlemen[max_idx].nama)
+			swap_string(&Data_Parlemen[i].partai, &Data_Parlemen[max_idx].partai)
+			swap_int(&Data_Parlemen[i].suara, &Data_Parlemen[max_idx].suara)
+		}
+	}
+	fmt.Println("NAMA |  PARTAI  |  SUARA")
+	for k := 0; k < size; k++{
+		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara)
+	}
+}
+
+func menambilkan_data_terurut_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
+	var max_idx int
+	for i := 0; i < size-1; i++{
+		max_idx = i
+		for j := 0; j < size; j++{
+			if Data_Parlemen[j].partai > Data_Parlemen[max_idx].partai{
+				max_idx = j
+			} else if Data_Parlemen[j].partai == Data_Parlemen[max_idx].partai && Data_Parlemen[j].nama > Data_Parlemen[max_idx].nama{
+				max_idx = j
+			}
+		}
+		if max_idx != i{
+			swap_string(&Data_Parlemen[i].nama, &Data_Parlemen[max_idx].nama)
+			swap_string(&Data_Parlemen[i].partai, &Data_Parlemen[max_idx].partai)
+			swap_int(&Data_Parlemen[i].suara, &Data_Parlemen[max_idx].suara)
+		}
+	}
+	fmt.Println("NAMA |  PARTAI  |  SUARA")
+	for k := 0; k < size; k++{
+		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara)
+	}
+}
+
+func pencarian_berdasarkan_nama(Data_Parlemen DaftarCalonAnggotaParlemen, size int){
+	var nama_pencarian string
+	var ada bool = false
+	var idx int = -1
+	fmt.Println("Silahkan masukkan nama yang ingin anda cari")
+	fmt.Scan(&nama_pencarian)
+	for i := 0; i < size; i++{
+		if Data_Parlemen[i].nama == nama_pencarian{
+			ada = true
+			idx = i
+		}
+	}
+	if ada{
+		fmt.Println("Berikut data yang anda cari:")
+		fmt.Println(Data_Parlemen[idx].nama, Data_Parlemen[idx].partai, Data_Parlemen[idx].suara)
+	} else{
+		fmt.Println("Mohon maaf, data yang anda cari tidak dapat ditemukan")
+	}
+}
+
+func pencarian_berdasarkan_partai(Data_Parlemen DaftarCalonAnggotaParlemen, size int){
+	var nama_pencarian string
+	var ada bool = false
+	
+	fmt.Println("Silahkan masukkan partai yang ingin anda cari")
+	fmt.Scan(&nama_pencarian)
+}
+
+func sort_nama()
