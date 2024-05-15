@@ -103,18 +103,29 @@ func cetak_menu_panitia(){
 	fmt.Println("6. Kembali ke menu awal")
 }
 
-func pencarian_data_parlemen(){
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
-	//isi ini coy
+func menu_pencarian_data_parlemen(){
+	fmt.Print("\033[H\033[2J")
+	fmt.Println("Silahkan masukkan pencarian yang ingin anda gunakan")
+	fmt.Println("1. Pencarian berdasarkan nama")
+	fmt.Println("2. Pencarian berdasarkan partai")
+	fmt.Println("3. Pencarian berdasarkan pemilih")
+
+}
+
+func process_input_pencarian_data_parlemen() int{
+	var x int
+	var jalan bool = true
+	for jalan{
+		fmt.Scan(&x)
+		if x >= 1 && x <= 3{
+			return x
+		} else{
+			fmt.Print("\033[H\033[2J")
+			menu_pencarian_data_parlemen()
+			fmt.Println("Input tidak benar, silahkan masukkan kembali input yang benar")
+		}
+	}
+	return -1
 }
 
 
@@ -335,7 +346,7 @@ func pencarian_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, siz
 	
 }
 
-func pencarian_berdasarkan_pemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, Data_pemilih DaftarPemilih, size_parlemen int, size_pemilih int){
+func pencarian_berdasarkan_pemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, Data_pemilih DaftarPemilih, size_parlemen, size_pemilih int){
 	var nama_pencarian string
 	fmt.Scan("Silahkan masukkan nama pemilih yang ingin anda cari")
 	fmt.Scan(&nama_pencarian)
@@ -404,3 +415,37 @@ func sort_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
 	}
 }
 
+func kalkulasi_threshold_kandidat(Data_Parlemen *DaftarCalonAnggotaParlemen, size_parlemen, size_pemilih int){
+	var rerata float64
+	sort_nama(Data_Parlemen, size_parlemen)
+	rerata = float64(size_pemilih) / float64(size_parlemen)
+	fmt.Println("Pemilih yang lolos untuk sebagai anggota legislatif adalah:")
+	for i := 0; i < size_parlemen; i++{
+		if rerata < float64(Data_Parlemen[i].suara){
+			fmt.Printf("%s dari partai %s dengan perolehan suara %d", Data_Parlemen[i].nama, Data_Parlemen[i].partai, Data_Parlemen[i].suara)
+		}
+	}
+}
+
+//nih function masih blm bener, tar gw benerin
+
+//func kalkulasi_threshold_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size_parlemen, size_pemilih int){
+//	var rerata float64
+//	var jumlah_partai int = 1
+//
+//	sort_partai(Data_Parlemen, size_parlemen)
+//	for i := 0; i < size_parlemen-1; i++{
+//		if Data_Parlemen[i].partai != Data_Parlemen[i+1].partai{
+//			jumlah_partai++
+//		}
+//	}
+//	rerata = float64(size_pemilih) / float64(jumlah_partai)
+//
+//	fmt.Println("Partai yang lolos adalah:")
+//	fmt.Printf("%s dengan perolehan suara")
+//	for j := 0; j < size_parlemen-1; j++{
+//		if Data_Parlemen[j].partai != Data_Parlemen[j+1].partai{
+//
+//		}
+//	}
+//}
