@@ -1,11 +1,32 @@
+/*
+TubesAlproAplikasiPemilihanUmum
+Program ini ditujukan untuk menyelesaikan tugas besar mata kuliah algrotima pemrograman semester 2
+Program yang dibuat adalah Aplikasi Pemilihan umum dengan spesifikasi seperti berikut
+
+Deskripsi
+Aplikasi digunakan untuk melakukan pemilihan umum calon legislatif dan partai tertentu. Pengguna aplikasi ini adalah pemilih dan juga petugas kpu.
+Spesifikasi:
+- Pengguna bisa menambahkan, mengubah (edit), dan juga menghapus data calon dan pemilih.
+- Pemilih bisa melakukan pemilihan pada durasi waktu yang ditentukan saja, di luar itu, hanya bisa melihat daftar calon saja.
+- Pengguna bisa menampilkan data terurut berdasarkan hasil perolehan suara. Berdasarkan partai, berdasarkan nama calon dan partai.
+- Tentukan nilai threshold atau ambang batas suatu calon untuk bisa terpilih.
+- Pengguna bisa melakukan pencarian data calon yang berasal dari partai tertentu, pencarian berdasarkan nama calon, dan juga nama pemilih dari calon tertentu.
+
+Authors
+- Heraldo Arman
+- Riyan Permana Purba
+
+CATATAN PENGGUNAAN APLIKASI
+1. Sebelum memilih, pastikan panitia mengatur rentang waktu dan kandidat terlebih dahulu
+2. cara masuk ke menu panitia adalah dengan mengetikkan "panitia" pada menu utama
+3. Jika terdapat bug, tolong segera melapor ke author
+*/
 package main
 
 import (
 	"fmt"
 	"time"
 )
-
-
 const NMAX int = 512
 type AnggotaParlemen struct {
 	nama string
@@ -21,25 +42,16 @@ type PemilihTetap struct {
 type DaftarCalonAnggotaParlemen [NMAX]AnggotaParlemen
 type DaftarPemilih [NMAX]PemilihTetap
 
-//masih belum selesai
 func main() {
-	//var masukan_main_menu int
-	//var n_data_parlemen int = 0
-	//var n_data_pemilih int = 0
-//
-	//fmt.Print("\033[H\033[2J")
-	//cetak_main_menu()
-	//masukan_main_menu = process_input_main_menu()
-	
-	
 	var parlemen DaftarCalonAnggotaParlemen
 	var pemilih DaftarPemilih
 	var nSize_parlemen, nSize_pemilih int
 	var input_1, input_2 int
 	var jalan bool = true
-	var waktu_pemilihan bool
-	cetak_main_menu()
+	var waktu_pemilihan bool = false
+	var jalan2 bool = true
 	for jalan{
+		cetak_main_menu()
 		input_1 = process_input_main_menu()
 		if input_1 == 1{
 			memilih_anggota_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih, waktu_pemilihan)
@@ -47,6 +59,7 @@ func main() {
 			menu_menampilkan_data_parlemen()
 			input_2 = process_input_menampilkan_data_parlemen()
 			if input_2 == 1{
+				//fmt.Println(parlemen, nSize_parlemen)
 				menampilkan_data_terurut_berdasarkan_nama(&parlemen, nSize_parlemen)
 			} else if input_2 == 2{
 				menampilkan_data_terurut_berdasarkan_partai(&parlemen, nSize_parlemen)
@@ -67,16 +80,24 @@ func main() {
 		} else if input_1 == 5{
 			jalan = false
 		} else if input_1 == 6{
-			cetak_menu_panitia()
-			input_2 = process_input_panitia()
-			if input_2 == 1{
-				menambah_anggota_parlemen(&parlemen, &nSize_parlemen)
-			} else if input_2 == 2{
-				menghapus_anggota_parlemen(&parlemen, &nSize_parlemen)
-			} else if input_2 == 3{
-				mengedit_anggota_parlemen(&parlemen, nSize_parlemen)
-			} else if input_2 == 4{
-				waktu_pemilihan = cek_rentang_waktu()
+			jalan2 = true
+			for jalan2 {
+				cetak_menu_panitia()
+				input_2 = process_input_panitia()
+				if input_2 == 1{
+					menambah_anggota_parlemen(&parlemen, &nSize_parlemen)
+					//fmt.Println(parlemen, nSize_parlemen)
+				} else if input_2 == 2{
+					menghapus_anggota_parlemen(&parlemen, &nSize_parlemen)
+				} else if input_2 == 3{
+					mengedit_anggota_parlemen(&parlemen, nSize_parlemen)
+				} else if input_2 == 4{
+					waktu_pemilihan = cek_rentang_waktu()
+				} else if input_2 == 6{
+					jalan2 = false
+				} else if input_2 == 5{
+					waktu_pemilihan = cek_rentang_waktu()
+				}
 			}
 		} else if input_1 == 4{
 			kalkulasi_threshold_kandidat(&parlemen, nSize_parlemen, nSize_pemilih)
@@ -254,14 +275,14 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 	for jalan{
 		ada = false
 		for !ada{
-			fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih kandidat_yang_dipilih'. jika sudah selesai memilih, silahkan ketik -1")
+			fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih kandidat_yang_dipilih'. jika sudah selesai memilih, silahkan ketik -1 -1")
 			fmt.Scan(&nama1, &nama2)
-			if nama1 == "-1"{
+			if nama2 == "-1" || nama1 == "-1"{
 				ada = true
 				jalan = false
 			}
 			for i := 0; i < size; i++{
-				if Data_Parlemen[i].nama == nama1{
+				if Data_Parlemen[i].nama == nama2{
 					ada = true
 					Data_Parlemen[i].suara++
 					menambah_data_pemilih(data_pemilih, nama1, nama2, size_pemilih)
@@ -271,7 +292,6 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 				fmt.Println("Kandidat yang anda pilih tidak ada, silahkan pilih kembali")
 			}
 		}
-
 	}
 }
 
@@ -297,6 +317,7 @@ func menambah_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *
 	for i := *size; i < *size + n; i++{
 		fmt.Scan(&Data_Parlemen[i].nama, &Data_Parlemen[i].partai)
 	}
+	*size += n
 }
 
 func mengedit_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
@@ -341,15 +362,13 @@ func menghapus_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size 
 }
 
 func swap_string(s1, s2 *string){
-	var temp1 string
-	temp1 = *s1
+	temp1 := *s1
 	*s1 = *s2
 	*s2 = temp1
 }
 
 func swap_int(s1, s2 *int){
-	var temp2 int
-	temp2 = *s1
+	temp2 := *s1
 	*s1 = *s2
 	*s2 = temp2
 }
@@ -366,6 +385,7 @@ func menampilkan_data_terurut_berdasarkan_suara(Data_Parlemen *DaftarCalonAnggot
 
 func menampilkan_data_terurut_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
 	sort_nama(Data_Parlemen, size)
+	//fmt.Println(*Data_Parlemen, size)
 	fmt.Println("NAMA |  PARTAI  |  SUARA")
 	for k := 0; k < size; k++{
 		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara)
@@ -438,7 +458,7 @@ func sort_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
 	var max_idx int
 	for i := 0; i < size-1; i++{
 		max_idx = i
-		for j := 0; j < size; j++{
+		for j := i + 1; j < size; j++{
 			if Data_Parlemen[j].nama < Data_Parlemen[max_idx].nama{
 				max_idx = j
 			}
@@ -455,7 +475,7 @@ func sort_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
 	var max_idx int
 	for i := 0; i < size-1; i++{
 		max_idx = i
-		for j := 0; j < size; j++{
+		for j := i + 1; j < size; j++{
 			if Data_Parlemen[j].partai < Data_Parlemen[max_idx].partai{
 				max_idx = j
 			} else if Data_Parlemen[j].partai == Data_Parlemen[max_idx].partai && Data_Parlemen[j].nama > Data_Parlemen[max_idx].nama{
@@ -474,7 +494,7 @@ func sort_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
 	var max_idx int
 	for i := 0; i < size-1; i++{
 		max_idx = i
-		for j := 0; j < size; j++{
+		for j := i + 1; j < size; j++{
 			if Data_Parlemen[j].suara > Data_Parlemen[max_idx].suara{
 				max_idx = j
 			}
