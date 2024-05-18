@@ -36,33 +36,49 @@ func main() {
 	var pemilih DaftarPemilih
 	var nSize_parlemen, nSize_pemilih int
 	var input_1, input_2 int
+	var jalan bool = true
+	var waktu_pemilihan bool
 	cetak_main_menu()
-	input_1 = process_input_main_menu()
-	if input_1 == 1{
-		memilih_anggota_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih)
-	} else if input_1 == 2{
-		menu_menampilkan_data_parlemen()
-		input_2 = process_input_menampilkan_data_parlemen()
-		if input_2 == 1{
-			menampilkan_data_terurut_berdasarkan_nama(&parlemen, nSize_parlemen)
-		} else if input_2 == 2{
-			menampilkan_data_terurut_berdasarkan_partai(&parlemen, nSize_parlemen)
-		} else if input_2 == 3{
-			menampilkan_data_terurut_berdasarkan_suara(&parlemen, nSize_parlemen)
-		}
-	} else if input_1 == 3{
-		menu_pencarian_data_parlemen()
-		input_2 = process_input_pencarian_data_parlemen()
-		if input_2 == 1{
-			pencarian_berdasarkan_nama(&parlemen, nSize_parlemen)
-		} else if input_2 == 2{
+	for jalan{
+		input_1 = process_input_main_menu()
+		if input_1 == 1{
+			memilih_anggota_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih, waktu_pemilihan)
+		} else if input_1 == 2{
+			menu_menampilkan_data_parlemen()
+			input_2 = process_input_menampilkan_data_parlemen()
+			if input_2 == 1{
+				menampilkan_data_terurut_berdasarkan_nama(&parlemen, nSize_parlemen)
+			} else if input_2 == 2{
+				menampilkan_data_terurut_berdasarkan_partai(&parlemen, nSize_parlemen)
+			} else if input_2 == 3{
+				menampilkan_data_terurut_berdasarkan_suara(&parlemen, nSize_parlemen)
+			}
+		} else if input_1 == 3{
+			menu_pencarian_data_parlemen()
+			input_2 = process_input_pencarian_data_parlemen()
+			if input_2 == 1{
+				pencarian_berdasarkan_nama(&parlemen, nSize_parlemen)
+			} else if input_2 == 2{
 			pencarian_berdasarkan_partai(&parlemen, nSize_parlemen)
-		} else if input_2 == 3{
-			pencarian_berdasarkan_pemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
-		}
+			} else if input_2 == 3{
+				pencarian_berdasarkan_pemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
+			}
 
-	} else if input_1 == 4{
-		fmt.Println("f")
+		} else if input_1 == 4{
+			jalan = false
+		} else if input_1 == 5{
+			cetak_menu_panitia()
+			input_2 = process_input_panitia()
+			if input_2 == 1{
+				menambah_anggota_parlemen(&parlemen, &nSize_parlemen)
+			} else if input_2 == 2{
+				menghapus_anggota_parlemen(&parlemen, &nSize_parlemen)
+			} else if input_2 == 3{
+				mengedit_anggota_parlemen(&parlemen, nSize_parlemen)
+			} else if input_2 == 4{
+				waktu_pemilihan = cek_rentang_waktu()
+			}
+		}
 	}
 }
 
@@ -180,7 +196,6 @@ func process_input_pencarian_data_parlemen() int{
 }
 
 
-
 func process_input_main_menu() int{
 	var x string
 	var jalan bool = true
@@ -223,11 +238,11 @@ func process_input_panitia() int{
 
 
 
-func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size int, data_pemilih *DaftarPemilih, size_pemilih *int){
+func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size int, data_pemilih *DaftarPemilih, size_pemilih *int, waktu bool){
 	var nama1, nama2 string
 	var jalan, ada bool
 	ada = false
-	jalan = cek_rentang_waktu()
+	jalan = waktu
 	if !jalan {
 		fmt.Println("Anda tidak sedang berada di masa pemilihan, Silahkan kembali saat masa pemilihan sedang berlangsung.")
 	}
