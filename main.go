@@ -64,9 +64,9 @@ func main() {
 				pencarian_berdasarkan_pemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
 			}
 
-		} else if input_1 == 4{
-			jalan = false
 		} else if input_1 == 5{
+			jalan = false
+		} else if input_1 == 6{
 			cetak_menu_panitia()
 			input_2 = process_input_panitia()
 			if input_2 == 1{
@@ -78,6 +78,8 @@ func main() {
 			} else if input_2 == 4{
 				waktu_pemilihan = cek_rentang_waktu()
 			}
+		} else if input_1 == 4{
+			kalkulasi_threshold_kandidat(&parlemen, nSize_parlemen, nSize_pemilih)
 		}
 	}
 }
@@ -132,7 +134,8 @@ func cetak_main_menu(){
 	fmt.Println("1. Memilih anggota parlemen")
 	fmt.Println("2. List calon anggota")
 	fmt.Println("3. Pencarian data calon anggota")
-	fmt.Println("4. Exit")
+	fmt.Println("4. menampilkan pemenang")
+	fmt.Println("5. Exit")
 }
 
 func cetak_menu_panitia(){
@@ -202,7 +205,7 @@ func process_input_main_menu() int{
 	for jalan{
 		fmt.Scan(&x)
 		if x == "panitia"{
-			return 5
+			return 6
 		} else if x == "1"{
 			return 1
 		} else if x == "2"{
@@ -211,6 +214,8 @@ func process_input_main_menu() int{
 			return 3
 		} else if x == "4"{
 			return 4
+		} else if x == "5"{
+			return 5
 		} else{
 			fmt.Print("\033[H\033[2J")
 			cetak_main_menu()
@@ -336,18 +341,19 @@ func menghapus_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size 
 }
 
 func swap_string(s1, s2 *string){
-	var temp string
-	temp = *s1
+	var temp1 string
+	temp1 = *s1
 	*s1 = *s2
-	*s2 = temp
+	*s2 = temp1
 }
 
 func swap_int(s1, s2 *int){
-	var temp int
-	temp = *s1
+	var temp2 int
+	temp2 = *s1
 	*s1 = *s2
-	*s2 = temp
+	*s2 = temp2
 }
+
 
 func menampilkan_data_terurut_berdasarkan_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
 	sort_suara(Data_Parlemen, size)
@@ -493,25 +499,4 @@ func kalkulasi_threshold_kandidat(Data_Parlemen *DaftarCalonAnggotaParlemen, siz
 	}
 }
 
-//nih function masih blm bener, tar gw benerin
-
-//func kalkulasi_threshold_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size_parlemen, size_pemilih int){
-//	var rerata float64
-//	var jumlah_partai int = 1
-//
-//	sort_partai(Data_Parlemen, size_parlemen)
-//	for i := 0; i < size_parlemen-1; i++{
-//		if Data_Parlemen[i].partai != Data_Parlemen[i+1].partai{
-//			jumlah_partai++
-//		}
-//	}
-//	rerata = float64(size_pemilih) / float64(jumlah_partai)
-//
-//	fmt.Println("Partai yang lolos adalah:")
-//	fmt.Printf("%s dengan perolehan suara")
-//	for j := 0; j < size_parlemen-1; j++{
-//		if Data_Parlemen[j].partai != Data_Parlemen[j+1].partai{
-//
-//		}
-//	}
-//}
+//udah selesai, tinggal benerin beberapa bug di func main
