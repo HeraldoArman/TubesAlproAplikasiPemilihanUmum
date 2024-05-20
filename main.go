@@ -264,7 +264,15 @@ func process_input_panitia() int{
 
 
 
-func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size int, data_pemilih *DaftarPemilih, size_pemilih *int, waktu bool){
+func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size int, data_pemilih *DaftarPemilih, size_pemilih *int, waktu bool) { 
+	/* I.S. terdefinisi: 
+	        - daftar calon anggota parlemen (Data_Parlemen) yang berisi size calon anggota dengan nama dan jumlah suara masing-masing calon.
+					- daftar pemilih (data_pemilih) yang berisi data pemilih yang sudah memilih, serta ukuran daftar pemilih(size_pemilih).
+					- waktu yang menunjukkan apakah pemilihan sedang berlangsung atau tidak (true untuk sedang berlangsung, false untuk tidak sedang 
+            berlangsung).
+     F.S. Data_Parlemen diperbarui dengan penambahan suara untuk kandidat yang dipilih oleh pemilih.
+					data_pemilih diperbarui dengan menambahkan pemilih yang sudah memilih beserta kandidat yang dipilih.
+					size_pemilih diperbarui sesuai dengan jumlah pemilih yang valid setelah pemilihan. */
 	var nama1, nama2 string
 	var jalan, ada bool
 	ada = false
@@ -307,7 +315,10 @@ func menambah_data_pemilih(data_pemilih *DaftarPemilih, nama, pilihan string, si
 	}
 }
 
-func menambah_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *int){
+func menambah_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *int) {
+	/* I.S.
+		 F.S.
+	*/
 	var n int
 	
 	fmt.Println("Silahkan masukkan jumlah anggota parlemen yang ingin ditambahkan terlebih dahulu")
