@@ -34,15 +34,23 @@ type AnggotaParlemen struct {
 	nama   string
 	partai string
 	suara  int
+	id string
 }
 
 type PemilihTetap struct {
 	nama    string
 	pilihan string
+	id 		string
 }
 
 type DaftarCalonAnggotaParlemen [NMAX]AnggotaParlemen
 type DaftarPemilih [NMAX]PemilihTetap
+
+/*
+	TAMPILAN UI BELUM DIPERBAIKI
+	MENU LOGIN BELUM DITAMBAHKAN
+	BELUM TESTING LEBIH LANJUT
+*/
 
 func main() {
 	var parlemen DaftarCalonAnggotaParlemen
@@ -77,6 +85,10 @@ func main() {
 				pencarian_berdasarkan_partai(&parlemen, nSize_parlemen)
 			} else if input_2 == 3 {
 				pencarian_berdasarkan_pemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
+			} else if input_2 == 4{
+				pencarian_berdasarkan_id(&parlemen, nSize_parlemen)
+			} else if input_2 == 5{
+				pencarian_berdasarkan_IDpemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
 			}
 
 		} else if input_1 == 5 {
@@ -175,9 +187,13 @@ func cetak_menu_panitia() {
 func menu_pencarian_data_parlemen() {
 	fmt.Print("\033[H\033[2J")
 	fmt.Println("Silahkan masukkan pencarian yang ingin anda gunakan")
-	fmt.Println("1. Pencarian berdasarkan nama")
+	fmt.Println("1. Pencarian berdasarkan nama kandidat")
 	fmt.Println("2. Pencarian berdasarkan partai")
-	fmt.Println("3. Pencarian berdasarkan pemilih")
+	fmt.Println("3. Pencarian berdasarkan nama pemilih")
+	fmt.Println("4. Pencarian berdasarkan id kandidat")
+	fmt.Println("5. Pencarian berdasarkan id pemilih")
+
+
 }
 
 func menu_menampilkan_data_parlemen() {
@@ -271,7 +287,7 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 	     F.S. Data_Parlemen diperbarui dengan penambahan suara untuk kandidat yang dipilih oleh pemilih.
 						data_pemilih diperbarui dengan menambahkan pemilih yang sudah memilih beserta kandidat yang dipilih.
 						size_pemilih diperbarui sesuai dengan jumlah pemilih yang valid setelah pemilihan. */
-	var nama1, nama2 string
+	var nama1, nama2, id_pemilih string
 	var jalan, ada bool
 	ada = false
 	jalan = waktu
@@ -281,18 +297,19 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 	for jalan {
 		ada = false
 		for !ada {
-			fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih kandidat_yang_dipilih'. jika sudah selesai memilih, silahkan ketik -1 -1")
-			fmt.Scan(&nama1, &nama2)
+			fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih id_pemilih kandidat_yang_dipilih' atau 'nama_pemilih id_pemilih nomor_kandidat_yang_dipilih'. jika sudah selesai memilih, silahkan ketik -1 -1")
+			fmt.Scan(&nama1, &id_pemilih, &nama2)
 			if nama2 == "-1" || nama1 == "-1" {
 				ada = true
 				jalan = false
 			}
 			for i := 0; i < size; i++ {
-				if Data_Parlemen[i].nama == nama2 {
+				if Data_Parlemen[i].nama == nama2 || Data_Parlemen[i].id == nama2{
 					ada = true
 					Data_Parlemen[i].suara++
-					menambah_data_pemilih(data_pemilih, nama1, nama2, size_pemilih)
+					menambah_data_pemilih(data_pemilih, nama1, Data_Parlemen[i].nama, size_pemilih, id_pemilih)
 				}
+
 			}
 			if !ada {
 				fmt.Println("Kandidat yang anda pilih tidak ada, silahkan pilih kembali")
@@ -301,12 +318,13 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 	}
 }
 
-func menambah_data_pemilih(data_pemilih *DaftarPemilih, nama, pilihan string, size_pemilih *int) {
+func menambah_data_pemilih(data_pemilih *DaftarPemilih, nama, pilihan string, size_pemilih *int, id_pemilih string) {
 	var size = len(*data_pemilih)
 	for i := 0; i < size; i++ {
 		if data_pemilih[i].nama == "" {
 			data_pemilih[i].nama = nama
 			data_pemilih[i].pilihan = pilihan
+			data_pemilih[i].id = id_pemilih
 			*size_pemilih++
 			i = size + 10
 		}
@@ -321,10 +339,10 @@ func menambah_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *
 
 	fmt.Println("Silahkan masukkan jumlah anggota parlemen yang ingin ditambahkan terlebih dahulu")
 	fmt.Scan(&n)
-	fmt.Println("Silahkan masukkan data anggota parlemen dengan format 'nama nama_partai'")
+	fmt.Println("Silahkan masukkan data anggota parlemen dengan format 'nama nama_partai id'")
 
 	for i := *size; i < *size+n; i++ {
-		fmt.Scan(&Data_Parlemen[i].nama, &Data_Parlemen[i].partai)
+		fmt.Scan(&Data_Parlemen[i].nama, &Data_Parlemen[i].partai, &Data_Parlemen[i].id)
 	}
 	*size += n
 }
@@ -342,21 +360,21 @@ func mengedit_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size i
 		}
 	}
 	if ada {
-		fmt.Println("Silahkan masukkan perubahan yang ingin anda ubah denan format 'nama nama_partai")
-		fmt.Scan(&Data_Parlemen[idx].nama, &Data_Parlemen[idx].partai)
+		fmt.Println("Silahkan masukkan perubahan yang ingin anda ubah denan format 'nama nama_partai id")
+		fmt.Scan(&Data_Parlemen[idx].nama, &Data_Parlemen[idx].partai, &Data_Parlemen[idx].id)
 	} else {
 		fmt.Println("Nama anggota yang anda cari tidak ditemukan!")
 	}
 }
 
 func menghapus_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *int) {
-	var nama string
+	var nama, id string
 	var ada bool = false
 	var idx int = -1
-	fmt.Println("Silahkan masukkan nama anggota parlemen yang ingin anda hapus")
-	fmt.Scan(&nama)
+	fmt.Println("Silahkan masukkan nama anggota parlemen yang ingin anda hapus dengan format 'nama id'")
+	fmt.Scan(&nama, &id)
 	for i := 0; i < *size; i++ {
-		if Data_Parlemen[i].nama == nama {
+		if Data_Parlemen[i].nama == nama && Data_Parlemen[i].id == id {
 			ada = true
 			idx = i
 		}
@@ -367,6 +385,8 @@ func menghapus_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size 
 			Data_Parlemen[i] = Data_Parlemen[i+1]
 		}
 		*size--
+	} else{
+		fmt.Println("Nama atau id yang anda masukkan tidak dapat ditemukan")
 	}
 }
 
@@ -384,27 +404,27 @@ func swap_int(s1, s2 *int) {
 
 func menampilkan_data_terurut_berdasarkan_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 	sort_suara(Data_Parlemen, size)
-	fmt.Println("NAMA |  PARTAI  |  SUARA")
+	fmt.Println("NAMA |  PARTAI  |  SUARA	| NOMOR ID")
 
 	for k := 0; k < size; k++ {
-		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara)
+		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara, Data_Parlemen[k].id)
 	}
 }
 
 func menampilkan_data_terurut_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 	sort_nama(Data_Parlemen, size)
 	//fmt.Println(*Data_Parlemen, size)
-	fmt.Println("NAMA |  PARTAI  |  SUARA")
+	fmt.Println("NAMA |  PARTAI  |  SUARA | NOMOR ID")
 	for k := 0; k < size; k++ {
-		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara)
+		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara, Data_Parlemen[k].id)
 	}
 }
 
 func menampilkan_data_terurut_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 	sort_partai(Data_Parlemen, size)
-	fmt.Println("NAMA |  PARTAI  |  SUARA")
+	fmt.Println("NAMA |  PARTAI  |  SUARA | NOMOR ID")
 	for k := 0; k < size; k++ {
-		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara)
+		fmt.Println(Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara, Data_Parlemen[k].id)
 	}
 }
 
@@ -427,6 +447,27 @@ func pencarian_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size 
 		fmt.Println("Mohon maaf, data yang anda cari tidak dapat ditemukan")
 	}
 }
+
+func pencarian_berdasarkan_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	var id_pencarian string
+	var ada bool = false
+	var idx int = -1
+	fmt.Println("Silahkan masukkan id yang ingin anda cari")
+	fmt.Scan(&id_pencarian)
+	for i := 0; i < size; i++ {
+		if Data_Parlemen[i].id == id_pencarian {
+			ada = true
+			idx = i
+		}
+	}
+	if ada {
+		fmt.Println("Berikut data yang anda cari:")
+		fmt.Println(Data_Parlemen[idx].nama, Data_Parlemen[idx].partai, Data_Parlemen[idx].suara, Data_Parlemen[idx].id)
+	} else {
+		fmt.Println("Mohon maaf, data yang anda cari tidak dapat ditemukan")
+	}
+}
+
 
 func pencarian_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 	var nama_pencarian string
@@ -467,6 +508,27 @@ func pencarian_berdasarkan_pemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, Da
 	}
 }
 
+func pencarian_berdasarkan_IDpemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, Data_pemilih DaftarPemilih, size_parlemen, size_pemilih int) {
+	var nama_pencarian string
+	var ada bool = false
+	fmt.Scan("Silahkan masukkan nama pemilih yang ingin anda cari")
+	fmt.Scan(&nama_pencarian)
+	for i := 0; i < size_pemilih; i++ {
+		if nama_pencarian == Data_pemilih[i].id {
+			ada = true
+			for j := 0; j < size_parlemen; j++ {
+				if Data_pemilih[i].pilihan == Data_Parlemen[j].nama {
+					fmt.Println("Nama anggota yang dipilih:", Data_pemilih[i].pilihan)
+					fmt.Println(Data_Parlemen[j].nama, Data_Parlemen[j].partai, Data_Parlemen[j].suara)
+				}
+			}
+		}
+	}
+	if !ada {
+		fmt.Println("Nama yang anda pilih tidak dapat ditemukan")
+	}
+}
+
 func sort_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 	var max_idx int
 	for i := 0; i < size-1; i++ {
@@ -480,6 +542,7 @@ func sort_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 			swap_string(&Data_Parlemen[i].nama, &Data_Parlemen[max_idx].nama)
 			swap_string(&Data_Parlemen[i].partai, &Data_Parlemen[max_idx].partai)
 			swap_int(&Data_Parlemen[i].suara, &Data_Parlemen[max_idx].suara)
+			swap_string(&Data_Parlemen[i].id, &Data_Parlemen[max_idx].id)
 		}
 	}
 }
@@ -497,6 +560,8 @@ func sort_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 			swap_string(&Data_Parlemen[i].nama, &Data_Parlemen[max_idx].nama)
 			swap_string(&Data_Parlemen[i].partai, &Data_Parlemen[max_idx].partai)
 			swap_int(&Data_Parlemen[i].suara, &Data_Parlemen[max_idx].suara)
+			swap_string(&Data_Parlemen[i].id, &Data_Parlemen[max_idx].id)
+
 		}
 	}
 }
@@ -514,6 +579,8 @@ func sort_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 			swap_string(&Data_Parlemen[i].nama, &Data_Parlemen[max_idx].nama)
 			swap_string(&Data_Parlemen[i].partai, &Data_Parlemen[max_idx].partai)
 			swap_int(&Data_Parlemen[i].suara, &Data_Parlemen[max_idx].suara)
+			swap_string(&Data_Parlemen[i].id, &Data_Parlemen[max_idx].id)
+
 		}
 	}
 }
@@ -525,21 +592,21 @@ func kalkulasi_threshold_kandidat(Data_Parlemen *DaftarCalonAnggotaParlemen, siz
 	fmt.Println("Pemilih yang lolos untuk sebagai anggota legislatif adalah:")
 	for i := 0; i < size_parlemen; i++ {
 		if rerata < float64(Data_Parlemen[i].suara) {
-			fmt.Printf("%s dari partai %s dengan perolehan suara %d\n", Data_Parlemen[i].nama, Data_Parlemen[i].partai, Data_Parlemen[i].suara)
+			fmt.Printf("%s dari partai %s dengan perolehan suara %d dengan %s\n", Data_Parlemen[i].nama, Data_Parlemen[i].partai, Data_Parlemen[i].suara, Data_Parlemen[i].id)
 		}
 	}
 }
 
 func menghapus_data_suara_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size_parlemen int, data_pemilih *DaftarPemilih, size_pemilih *int) {
-	var nama string
+	var nama, id string
 	var ada bool = false
 	var idx int = -1
 	var nama_yang_dipilih string
-	fmt.Println("Silahkan masukkan nama pemilih yang ingin anda hapus")
-	fmt.Scan(&nama)
+	fmt.Println("Silahkan masukkan nama dan id pemilih yang ingin anda hapus dengan format 'nama id'")
+	fmt.Scan(&nama, &id)
 
 	for i := 0; i < *size_pemilih; i++ {
-		if data_pemilih[i].nama == nama {
+		if data_pemilih[i].nama == nama && data_pemilih[i].id == id {
 			ada = true
 			idx = i
 			nama_yang_dipilih = data_pemilih[i].pilihan
@@ -556,7 +623,7 @@ func menghapus_data_suara_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, si
 			}
 		}
 
+	} else{
+		fmt.Println("Data yang anda masukkan tidak dapat ditemukan")
 	}
 }
-
-//udah selesai, tinggal benerin beberapa bug di func main
