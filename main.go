@@ -336,13 +336,20 @@ func menambah_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *
 	F.S.
 	*/
 	var n int
-
+	var data_kosong DaftarCalonAnggotaParlemen
 	fmt.Println("Silahkan masukkan jumlah anggota parlemen yang ingin ditambahkan terlebih dahulu")
 	fmt.Scan(&n)
 	fmt.Println("Silahkan masukkan data anggota parlemen dengan format 'nama nama_partai id'")
 
 	for i := *size; i < *size+n; i++ {
 		fmt.Scan(&Data_Parlemen[i].nama, &Data_Parlemen[i].partai, &Data_Parlemen[i].id)
+		for j := 0; j < i; j++{
+			if Data_Parlemen[i].id == Data_Parlemen[j].id{
+				Data_Parlemen[i] = data_kosong[1]
+				*size--
+				fmt.Println("Error: data id yang anda masukkan tidak boleh sama, data terakhir yang anda masukkan akan dihapus secara otomatis")
+			}
+		}
 	}
 	*size += n
 }
@@ -430,19 +437,26 @@ func menampilkan_data_terurut_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggo
 
 func pencarian_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 	var nama_pencarian string
-	var ada bool = false
-	var idx int = -1
+	//var idx int = -1
+	var count int
+	var idx_arr [NMAX]int
 	fmt.Println("Silahkan masukkan nama yang ingin anda cari")
 	fmt.Scan(&nama_pencarian)
+	sort_nama(Data_Parlemen, size)
 	for i := 0; i < size; i++ {
 		if Data_Parlemen[i].nama == nama_pencarian {
-			ada = true
-			idx = i
+			count++
+			for j := 0; j < count; j++{
+				idx_arr[j] = i
+			}
 		}
 	}
-	if ada {
+
+	if count > 0 {
 		fmt.Println("Berikut data yang anda cari:")
-		fmt.Println(Data_Parlemen[idx].nama, Data_Parlemen[idx].partai, Data_Parlemen[idx].suara)
+		for i := 0; i < count; i++{
+			fmt.Println(Data_Parlemen[idx_arr[i]].nama, Data_Parlemen[idx_arr[i]].partai, Data_Parlemen[idx_arr[i]].suara, Data_Parlemen[idx_arr[i]].id)
+		}
 	} else {
 		fmt.Println("Mohon maaf, data yang anda cari tidak dapat ditemukan")
 	}
@@ -452,12 +466,22 @@ func pencarian_berdasarkan_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 	var id_pencarian string
 	var ada bool = false
 	var idx int = -1
+	var kiri, kanan, tengah int
 	fmt.Println("Silahkan masukkan id yang ingin anda cari")
 	fmt.Scan(&id_pencarian)
-	for i := 0; i < size; i++ {
-		if Data_Parlemen[i].id == id_pencarian {
+
+	sort_id(Data_Parlemen, size)
+	kiri = 0
+	kanan = size - 1
+	for kanan >= kiri{
+		tengah = (kanan + kiri) / 2
+		if Data_Parlemen[tengah].id == id_pencarian{
+			idx = tengah
 			ada = true
-			idx = i
+		} else if Data_Parlemen[tengah].id < id_pencarian{
+			kiri = tengah + 1
+		} else{
+			kanan = tengah - 1
 		}
 	}
 	if ada {
@@ -581,6 +605,20 @@ func sort_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 			swap_int(&Data_Parlemen[i].suara, &Data_Parlemen[max_idx].suara)
 			swap_string(&Data_Parlemen[i].id, &Data_Parlemen[max_idx].id)
 
+		}
+	}
+}
+
+func sort_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
+	var j int
+	for i := 1; i < size; i++{
+		j = i
+		for j > 0 && Data_Parlemen[j-1].id > Data_Parlemen[j].id{
+			swap_string(&Data_Parlemen[j-1].nama, &Data_Parlemen[j].nama)
+			swap_string(&Data_Parlemen[j-1].partai, &Data_Parlemen[j].partai)
+			swap_int(&Data_Parlemen[j-1].suara, &Data_Parlemen[j].suara)
+			swap_string(&Data_Parlemen[j-1].id, &Data_Parlemen[j].id)
+			j--
 		}
 	}
 }

@@ -1,20 +1,20 @@
-abdul partai_pohon
-joni partai_pohon
-siti partai_bunga
-budi partai_bunga
-dina partai_biru
-agus partai_pohon
-lia partai_bunga
-yani partai_biru
-mira partai_biru
-tio partai_bunga
-rudi partai_pohon
-nina partai_biru
-fahmi partai_bunga
-rita partai_pohon
-andi partai_biru
-yuda partai_bunga
-tina partai_pohon
-feri partai_biru
-maya partai_bunga
-reza partai_pohon
+abdul partai_pohon 001
+joni partai_pohon 002
+siti partai_bunga 003
+budi partai_bunga 004
+dina partai_biru 005
+agus partai_pohon 006
+lia partai_bunga 007
+yani partai_biru 008
+mira partai_biru 009
+tio partai_bunga 010
+rudi partai_pohon 011
+nina partai_biru 012
+fahmi partai_bunga 013
+rita partai_pohon 014
+andi partai_biru 015
+yuda partai_bunga 016
+tina partai_pohon 017
+feri partai_biru 018
+maya partai_bunga 019
+reza partai_pohon 020
