@@ -56,65 +56,147 @@ func main() {
 	var parlemen DaftarCalonAnggotaParlemen
 	var pemilih DaftarPemilih
 	var nSize_parlemen, nSize_pemilih int
-	var input_1, input_2 int
+	var input_1, input_2, input_3 int
 	var jalan bool = true
 	var waktu_pemilihan bool = false
 	var jalan2 bool = true
-	for jalan {
-		cetak_main_menu()
-		input_1 = process_input_main_menu()
-		if input_1 == 1 {
-			memilih_anggota_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih, waktu_pemilihan)
-		} else if input_1 == 2 {
-			menu_menampilkan_data_parlemen()
-			input_2 = process_input_menampilkan_data_parlemen()
-			if input_2 == 1 {
-				//fmt.Println(parlemen, nSize_parlemen)
-				menampilkan_data_terurut_berdasarkan_nama(&parlemen, nSize_parlemen)
-			} else if input_2 == 2 {
-				menampilkan_data_terurut_berdasarkan_partai(&parlemen, nSize_parlemen)
-			} else if input_2 == 3 {
-				menampilkan_data_terurut_berdasarkan_suara(&parlemen, nSize_parlemen)
-			}
-		} else if input_1 == 3 {
-			menu_pencarian_data_parlemen()
-			input_2 = process_input_pencarian_data_parlemen()
-			if input_2 == 1 {
-				pencarian_berdasarkan_nama(&parlemen, nSize_parlemen)
-			} else if input_2 == 2 {
-				pencarian_berdasarkan_partai(&parlemen, nSize_parlemen)
-			} else if input_2 == 3 {
-				pencarian_berdasarkan_pemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
-			} else if input_2 == 4{
-				pencarian_berdasarkan_id(&parlemen, nSize_parlemen)
-			} else if input_2 == 5{
-				pencarian_berdasarkan_IDpemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
-			}
 
-		} else if input_1 == 5 {
-			jalan = false
-		} else if input_1 == 6 {
+	var password string = "password"
+	var input_password string
+
+	//main menu sebelum diubah
+
+	//for jalan {
+	//	cetak_main_menu()
+	//	input_1 = process_input_main_menu()
+	//	if input_1 == 1 {
+	//		memilih_anggota_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih, waktu_pemilihan)
+	//	} else if input_1 == 2 {
+	//		menu_menampilkan_data_parlemen()
+	//		input_2 = process_input_menampilkan_data_parlemen()
+	//		if input_2 == 1 {
+	//			//fmt.Println(parlemen, nSize_parlemen)
+	//			menampilkan_data_terurut_berdasarkan_nama(&parlemen, nSize_parlemen)
+	//		} else if input_2 == 2 {
+	//			menampilkan_data_terurut_berdasarkan_partai(&parlemen, nSize_parlemen)
+	//		} else if input_2 == 3 {
+	//			menampilkan_data_terurut_berdasarkan_suara(&parlemen, nSize_parlemen)
+	//		}
+	//	} else if input_1 == 3 {
+	//		menu_pencarian_data_parlemen()
+	//		input_2 = process_input_pencarian_data_parlemen()
+	//		if input_2 == 1 {
+	//			pencarian_berdasarkan_nama(&parlemen, nSize_parlemen)
+	//		} else if input_2 == 2 {
+	//			pencarian_berdasarkan_partai(&parlemen, nSize_parlemen)
+	//		} else if input_2 == 3 {
+	//			pencarian_berdasarkan_pemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
+	//		} else if input_2 == 4{
+	//			pencarian_berdasarkan_id(&parlemen, nSize_parlemen)
+	//		} else if input_2 == 5{
+	//			pencarian_berdasarkan_IDpemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
+	//		}
+//
+	//	} else if input_1 == 5 {
+	//		jalan = false
+	//	} else if input_1 == 6 {
+	//		jalan2 = true
+	//		for jalan2 {
+	//			cetak_menu_panitia()
+	//			input_2 = process_input_panitia()
+	//			if input_2 == 1 {
+	//				menambah_anggota_parlemen(&parlemen, &nSize_parlemen)
+	//				//fmt.Println(parlemen, nSize_parlemen)
+	//			} else if input_2 == 2 {
+	//				menghapus_anggota_parlemen(&parlemen, &nSize_parlemen)
+	//			} else if input_2 == 3 {
+	//				mengedit_anggota_parlemen(&parlemen, nSize_parlemen)
+	//			} else if input_2 == 4 {
+	//				menghapus_data_suara_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih)
+	//			} else if input_2 == 6 {
+	//				jalan2 = false
+	//			} else if input_2 == 5 {
+	//				waktu_pemilihan = cek_rentang_waktu()
+	//			}
+	//		}
+	//	} else if input_1 == 4 {
+	//		kalkulasi_threshold_kandidat(&parlemen, nSize_parlemen, nSize_pemilih)
+	//	}
+	//}
+	
+	//main menu update baru
+	for jalan{
+		cetak_menu_login()
+		input_1 = process_input_login()
+		if input_1 == 1{
 			jalan2 = true
-			for jalan2 {
-				cetak_menu_panitia()
-				input_2 = process_input_panitia()
-				if input_2 == 1 {
-					menambah_anggota_parlemen(&parlemen, &nSize_parlemen)
+			for jalan2{
+			cetak_main_menu()
+			input_2 = process_input_main_menu()
+			if input_2 == 1 {
+				memilih_anggota_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih, waktu_pemilihan)
+			} else if input_2 == 2 {
+				menu_menampilkan_data_parlemen()
+				input_3 = process_input_menampilkan_data_parlemen()
+				if input_3 == 1 {
 					//fmt.Println(parlemen, nSize_parlemen)
-				} else if input_2 == 2 {
-					menghapus_anggota_parlemen(&parlemen, &nSize_parlemen)
-				} else if input_2 == 3 {
-					mengedit_anggota_parlemen(&parlemen, nSize_parlemen)
-				} else if input_2 == 4 {
-					menghapus_data_suara_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih)
-				} else if input_2 == 6 {
-					jalan2 = false
-				} else if input_2 == 5 {
-					waktu_pemilihan = cek_rentang_waktu()
+					menampilkan_data_terurut_berdasarkan_nama(&parlemen, nSize_parlemen)
+				} else if input_3 == 2 {
+					menampilkan_data_terurut_berdasarkan_partai(&parlemen, nSize_parlemen)
+				} else if input_3 == 3 {
+					menampilkan_data_terurut_berdasarkan_suara(&parlemen, nSize_parlemen)
+				}
+			} else if input_2 == 3 {
+				menu_pencarian_data_parlemen()
+				input_3 = process_input_pencarian_data_parlemen()
+				if input_3 == 1 {
+					pencarian_berdasarkan_nama(&parlemen, nSize_parlemen)
+				} else if input_3 == 2 {
+					pencarian_berdasarkan_partai(&parlemen, nSize_parlemen)
+				} else if input_3 == 3 {
+					pencarian_berdasarkan_pemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
+				} else if input_3 == 4{
+					pencarian_berdasarkan_id(&parlemen, nSize_parlemen)
+				} else if input_3 == 5{
+					pencarian_berdasarkan_IDpemilih(&parlemen, pemilih, nSize_parlemen, nSize_pemilih)
+				}
+			} else if input_2 == 4 {
+				kalkulasi_threshold_kandidat(&parlemen, nSize_parlemen, nSize_pemilih)
+			} else if input_2 == 5{
+				jalan2 = false
+			}
+		}
+		} else if input_1 == 2{
+			fmt.Println("Masukkan password panitia:")
+			fmt.Scan(&input_password)
+			if input_password != password{
+				fmt.Print("\033[H\033[2J")
+				fmt.Println("Password yang anda masukkan salah!")
+			} else{
+				jalan2 = true
+				for jalan2 {
+					fmt.Print("\033[H\033[2J")
+					cetak_menu_panitia()
+					input_2 = process_input_panitia()
+					if input_2 == 1 {
+						menambah_anggota_parlemen(&parlemen, &nSize_parlemen)
+						//fmt.Println(parlemen, nSize_parlemen)
+					} else if input_2 == 2 {
+						menghapus_anggota_parlemen(&parlemen, &nSize_parlemen)
+					} else if input_2 == 3 {
+						mengedit_anggota_parlemen(&parlemen, nSize_parlemen)
+					} else if input_2 == 4 {
+						menghapus_data_suara_parlemen(&parlemen, nSize_parlemen, &pemilih, &nSize_pemilih)
+					} else if input_2 == 6 {
+						jalan2 = false
+					} else if input_2 == 5 {
+						waktu_pemilihan = cek_rentang_waktu()
+					}
 				}
 			}
-		} else if input_1 == 4 {
-			kalkulasi_threshold_kandidat(&parlemen, nSize_parlemen, nSize_pemilih)
+		} else if input_1 == 3{
+			fmt.Print("\033[H\033[2J")
+			jalan = false
 		}
 	}
 }
@@ -161,6 +243,15 @@ func cek_rentang_waktu() bool {
 	return hari_ini.After(cek_start) && hari_ini.Before(cek_akhir)
 }
 
+func cetak_menu_login(){
+	fmt.Println("Selamat datang di aplikasi pemilihan umum")
+	print_waktu()
+	fmt.Println("Silahkan masukkan opsi yang ingin anda pilih")
+	fmt.Println("1. login sebagai pemilih")
+	fmt.Println("2. login sebagai panitia")
+	fmt.Println("3. exit")
+}
+
 func cetak_main_menu() {
 	fmt.Println("Selamat datang di aplikasi pemilihan umum")
 	print_waktu()
@@ -169,7 +260,7 @@ func cetak_main_menu() {
 	fmt.Println("2. List calon anggota")
 	fmt.Println("3. Pencarian data calon anggota")
 	fmt.Println("4. menampilkan pemenang")
-	fmt.Println("5. Exit")
+	fmt.Println("5. Kembali ke menu awal")
 }
 
 func cetak_menu_panitia() {
@@ -204,6 +295,37 @@ func menu_menampilkan_data_parlemen() {
 	fmt.Println("3. menampilkan nama berdasarkan suara")
 }
 
+func process_input_login() int{
+	var x int
+	var jalan bool = true
+	for jalan{
+		fmt.Scan(&x)
+		if x >= 1 && x <= 3{
+			return x
+		} else {
+			fmt.Print("\033[H\033[2J")
+			cetak_menu_login()
+			fmt.Println("Input tidak benar, silahkan masukkan kembali input yang benar")
+		}
+	}
+	return -1
+}
+
+//func input_password(pass string) bool{
+//	var x string
+//	fmt.Print("\033[H\033[2J")
+//	fmt.Println("Silahkan masukkan pasword panitia:")
+//	fmt.Scan(&x)
+//	if x == pass{
+//		return true
+//	} else{
+//		fmt.Println("Password yang ada masukkan salah")
+//		return false
+//	}
+//
+//
+//}
+
 func process_input_menampilkan_data_parlemen() int {
 	var x int
 	var jalan bool = true
@@ -237,22 +359,24 @@ func process_input_pencarian_data_parlemen() int {
 }
 
 func process_input_main_menu() int {
-	var x string
+	var x int
 	var jalan bool = true
 	for jalan {
 		fmt.Scan(&x)
-		if x == "panitia" {
-			return 6
-		} else if x == "1" {
-			return 1
-		} else if x == "2" {
-			return 2
-		} else if x == "3" {
-			return 3
-		} else if x == "4" {
-			return 4
-		} else if x == "5" {
-			return 5
+		//if x == "panitia" {
+		//	return 6
+		//} else if x == "1" {
+		//	return 1
+		//} else if x == "2" {
+		//	return 2
+		//} else if x == "3" {
+		//	return 3
+		//} else if x == "4" {
+		//	return 4
+		//} else if x == "5" {
+		//	return 5
+		if x >= 1 && x <= 5 {
+			return x
 		} else {
 			fmt.Print("\033[H\033[2J")
 			cetak_main_menu()

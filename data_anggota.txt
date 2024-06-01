@@ -1,48 +1,48 @@
-ahmad abdul
-budi joni
-citra siti
-dedi budi
-eni dina
-fajar agus
-gina lia
-hari yani
-ina mira
-joni tio
-kiki rudi
-lina nina
-mario fahmi
-nina rita
-oki andi
-putri yuda
-rizki tina
-sari feri
-tio maya
-udin reza
-vika abdul
-wanda joni
-xena siti
-yanto budi
-zara dina
-arif agus
-bella lia
-cecep yani
-dina mira
-eko tio
-fina rudi
-gilang nina
-hana fahmi
-ida rita
-joni andi
-kaka yuda
-lia tina
-maman feri
-nana maya
-opa reza
-pipi abdul
-qori joni
-rina siti
-samsul budi
-tita dina
-umar agus
-vina lia
-wira yani
+ahmad abdul 123
+budi joni 132
+citra siti 142
+dedi budi 152
+eni dina 162
+fajar agus 174
+gina lia 185
+hari yani 199
+ina mira 211
+joni tio 224
+kiki rudi 240
+lina nina 257
+mario fahmi 280
+nina rita 299
+oki andi 318
+putri yuda 343
+rizki tina 370
+sari feri 397
+tio maya 422
+udin reza 452
+vika abdul 487
+wanda joni 525
+xena siti 563
+yanto budi 607
+zara dina 650
+arif agus 696
+bella lia 745
+cecep yani 804
+dina mira 861
+eko tio 909
+fina rudi 973
+gilang nina 1057
+hana fahmi 1140
+ida rita 1212
+joni andi 1298
+kaka yuda 1390
+lia tina 1478
+maman feri 1594
+nana maya 1707
+opa reza 1815
+pipi abdul 1958
+qori joni 2096
+rina siti 2245
+samsul budi 2439
+tita dina 2612
+umar agus 2797
+vina lia 2973
+wira yani 3184
