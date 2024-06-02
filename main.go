@@ -620,6 +620,7 @@ func pencarian_berdasarkan_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 		if Data_Parlemen[tengah].id == id_pencarian{
 			idx = tengah
 			ada = true
+			kanan = kiri - 1
 		} else if Data_Parlemen[tengah].id < id_pencarian{
 			kiri = tengah + 1
 		} else{
