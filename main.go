@@ -302,7 +302,7 @@ func process_input_pencarian_data_parlemen() int {
 	var jalan bool = true
 	for jalan {
 		fmt.Scan(&x)
-		if x >= 1 && x <= 3 {
+		if x >= 1 && x <= 5 {
 			return x
 		} else {
 			fmt.Print("\033[H\033[2J")
