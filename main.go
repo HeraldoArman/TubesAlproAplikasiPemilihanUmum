@@ -365,8 +365,8 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 	for jalan {
 		ada = false
 		for !ada {
-			fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih id_pemilih kandidat_yang_dipilih' atau 'nama_pemilih id_pemilih nomor_kandidat_yang_dipilih'. jika sudah selesai memilih, silahkan ketik -1 -1")
-			fmt.Scan(&nama1, &id_pemilih, &nama2)
+			fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih nama_kandidat_yang_dipilih id_pemilih' atau 'nama_pemilih id_kandidat_yang_dipilih id_pemilih'. jika sudah selesai memilih, silahkan ketik -1 -1")
+			fmt.Scan(&nama1, &nama2, &id_pemilih)
 			if nama2 == "-1" || nama1 == "-1" {
 				ada = true
 				jalan = false
@@ -377,7 +377,6 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 					Data_Parlemen[i].suara++
 					menambah_data_pemilih(data_pemilih, nama1, Data_Parlemen[i].nama, size_pemilih, id_pemilih)
 				}
-
 			}
 			if !ada {
 				fmt.Println("Kandidat yang anda pilih tidak ada, silahkan pilih kembali")
@@ -737,7 +736,6 @@ func menghapus_data_suara_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, si
 				Data_Parlemen[i].suara--
 			}
 		}
-
 	} else{
 		fmt.Println("Data yang anda masukkan tidak dapat ditemukan")
 	}
