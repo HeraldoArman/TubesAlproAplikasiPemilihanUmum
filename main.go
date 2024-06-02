@@ -624,7 +624,7 @@ func pencarian_berdasarkan_IDpemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, 
 		}
 	}
 	if !ada {
-		fmt.Println("Nama yang anda pilih tidak dapat ditemukan")
+		fmt.Println("ID yang anda cari tidak dapat ditemukan")
 	}
 }
 
