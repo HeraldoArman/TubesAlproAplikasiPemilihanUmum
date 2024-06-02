@@ -667,7 +667,7 @@ func pencarian_berdasarkan_pemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, Da
 	*/
 	var nama_pencarian string
 	var ada bool = false
-	fmt.Scan("Silahkan masukkan nama pemilih yang ingin anda cari")
+	fmt.Println("Silahkan masukkan nama pemilih yang ingin anda cari")
 	fmt.Scan(&nama_pencarian)
 	for i := 0; i < size_pemilih; i++ {
 		if nama_pencarian == Data_pemilih[i].nama {
