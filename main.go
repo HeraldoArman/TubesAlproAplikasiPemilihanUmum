@@ -212,15 +212,20 @@ func cek_rentang_waktu() bool {
 }
 
 func cetak_menu_login(){
+	//menampilan menu
+	fmt.Println("--------------------------------------------")
 	fmt.Println("Selamat datang di aplikasi pemilihan umum")
 	print_waktu()
 	fmt.Println("Silahkan masukkan opsi yang ingin anda pilih")
 	fmt.Println("1. login sebagai pemilih")
 	fmt.Println("2. login sebagai panitia")
 	fmt.Println("3. exit")
+	fmt.Println("--------------------------------------------")
 }
 
 func cetak_main_menu() {
+	//menampilan menu
+	fmt.Println("--------------------------------------------")
 	fmt.Println("Selamat datang di aplikasi pemilihan umum")
 	print_waktu()
 	fmt.Println("Silahkan masukkan opsi yang ingin anda pilih")
@@ -229,9 +234,13 @@ func cetak_main_menu() {
 	fmt.Println("3. Pencarian data calon anggota")
 	fmt.Println("4. menampilkan pemenang")
 	fmt.Println("5. Kembali ke menu awal")
+	fmt.Println("--------------------------------------------")
+
 }
 
 func cetak_menu_panitia() {
+	//menampilan menu panitia
+	fmt.Println("--------------------------------------------")
 	fmt.Println("Selamat datang di menu panitia")
 	print_waktu()
 	fmt.Println("Silahkan masukkan opsi yang ingin anda pilih")
@@ -241,31 +250,36 @@ func cetak_menu_panitia() {
 	fmt.Println("4. Menghapus data suara parlemen")
 	fmt.Println("5. Mengubah rentang waktu pemilihan")
 	fmt.Println("6. Kembali ke menu awal")
+	fmt.Println("--------------------------------------------")
 }
 
 func menu_pencarian_data_parlemen() {
+	//menampilan menu pencarian data parlemen
 	fmt.Print("\033[H\033[2J")
+	fmt.Println("--------------------------------------------")
 	fmt.Println("Silahkan masukkan pencarian yang ingin anda gunakan")
 	fmt.Println("1. Pencarian berdasarkan nama kandidat")
 	fmt.Println("2. Pencarian berdasarkan partai")
 	fmt.Println("3. Pencarian berdasarkan nama pemilih")
 	fmt.Println("4. Pencarian berdasarkan id kandidat")
 	fmt.Println("5. Pencarian berdasarkan id pemilih")
-
-
+	fmt.Println("--------------------------------------------")
 }
 
 func menu_menampilkan_data_parlemen() {
+	//menampilan data parlemen
 	fmt.Print("\033[H\033[2J")
+	fmt.Println("--------------------------------------------")
 	fmt.Println("Silahkan masukkan pencarian yang ingin anda gunakan")
 	fmt.Println("1. menampilkan nama berdasarkan nama")
 	fmt.Println("2. menampilkan nama berdasarkan partai")
 	fmt.Println("3. menampilkan nama berdasarkan suara")
 	fmt.Println("4. menampilkan nama berdasarkan ID")
-
+	fmt.Println("--------------------------------------------")
 }
 
 func process_input_login() int{
+	//melakukan proses input login
 	var x int
 	var jalan bool = true
 	for jalan{
@@ -282,6 +296,7 @@ func process_input_login() int{
 }
 
 func process_input_menampilkan_data_parlemen() int {
+	//melakukan proses input data parlemen
 	var x int
 	var jalan bool = true
 	for jalan {
@@ -298,6 +313,7 @@ func process_input_menampilkan_data_parlemen() int {
 }
 
 func process_input_pencarian_data_parlemen() int {
+	//melakukan proses input pencarian data parlemen
 	var x int
 	var jalan bool = true
 	for jalan {
@@ -314,6 +330,7 @@ func process_input_pencarian_data_parlemen() int {
 }
 
 func process_input_main_menu() int {
+	//melakukan proses input main menu
 	var x int
 	var jalan bool = true
 	for jalan {
@@ -331,6 +348,7 @@ func process_input_main_menu() int {
 }
 
 func process_input_panitia() int {
+	//melakukan proses input panitia
 	var x int
 	var jalan bool = true
 	for jalan {
@@ -348,13 +366,16 @@ func process_input_panitia() int {
 
 func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size int, data_pemilih *DaftarPemilih, size_pemilih *int, waktu bool) {
 	/* I.S. terdefinisi:
-		        - daftar calon anggota parlemen (Data_Parlemen) yang berisi size calon anggota dengan nama dan jumlah suara masing-masing calon.
-						- daftar pemilih (data_pemilih) yang berisi data pemilih yang sudah memilih, serta ukuran daftar pemilih(size_pemilih).
-						- waktu yang menunjukkan apakah pemilihan sedang berlangsung atau tidak (true untuk sedang berlangsung, false untuk tidak sedang
-	            berlangsung).
-	     F.S. Data_Parlemen diperbarui dengan penambahan suara untuk kandidat yang dipilih oleh pemilih.
-						data_pemilih diperbarui dengan menambahkan pemilih yang sudah memilih beserta kandidat yang dipilih.
-						size_pemilih diperbarui sesuai dengan jumlah pemilih yang valid setelah pemilihan. */
+		        - daftar calon anggota parlemen (Data_Parlemen) yang berisi size calon anggota dengan nama 
+          dan jumlah suara masing-masing calon.
+						- daftar pemilih (data_pemilih) yang berisi data pemilih yang sudah memilih, serta ukuran 
+          daftar pemilih(size_pemilih).
+						- waktu yang menunjukkan apakah pemilihan sedang berlangsung atau tidak (true untuk sedang 
+          berlangsung, false untuk tidak sedang berlangsung).
+	   F.S. - Data_Parlemen diperbarui dengan penambahan suara untuk kandidat yang dipilih oleh pemilih.
+					- data_pemilih diperbarui dengan menambahkan pemilih yang sudah memilih beserta kandidat yang 
+          dipilih.
+					- size_pemilih diperbarui sesuai dengan jumlah pemilih yang valid setelah pemilihan. */
 	var nama1, nama2, id_pemilih string
 	var jalan, ada bool
 	ada = false
@@ -387,6 +408,14 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 }
 
 func menambah_data_pemilih(data_pemilih *DaftarPemilih, nama, pilihan string, size_pemilih *int, id_pemilih string) {
+	/* I.S. Terdefinisi daftar pemilih (data_pemilih) dengan ukuran awal size_pemilih yang menunjukkan 
+          jumlah pemilih yang ada.
+          Terdefinisi pointer size_pemilih yang menyimpan ukuran daftar pemilih saat ini.
+          Terdefinisi nama dan pilihan sebagai string yang berisi nama pemilih dan pilihan yang mereka 
+          buat.
+          Terdefinisi id_pemilih sebagai string yang menunjukkan ID unik pemilih.
+     F.S. Ukuran daftar pemilih (size_pemilih) bertambah. Data pemilih baru dimasukkan ke dalam 
+          daftar data_pemilih dengan nama, pilihan, dan id_pemilih. */
 	var size = len(*data_pemilih)
 	for i := 0; i < size; i++ {
 		if data_pemilih[i].nama == "" {
@@ -400,8 +429,11 @@ func menambah_data_pemilih(data_pemilih *DaftarPemilih, nama, pilihan string, si
 }
 
 func menambah_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *int) {
-	/* I.S.
-	F.S.
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran awal size yang 
+          menunjukkan jumlah calon anggota parlemen yang ada.
+				  Terdefinisi pointer size yang menyimpan ukuran daftar calon anggota parlemen saat ini.
+	   F.S. Ukuran daftar calon anggota parlemen (size) bertambah sesuai dengan jumlah anggota parlemen 
+          baru yang ditambahkan. Data anggota parlemen baru dimasukkan ke dalam daftar Data_Parlemen. 
 	*/
 	var n int
 	var data_kosong DaftarCalonAnggotaParlemen
@@ -423,6 +455,11 @@ func menambah_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *
 }
 
 func mengedit_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size yang menunjukkan 
+          jumlah calon anggota parlemen yang ada.
+		 F.S. Salah satu anggota parlemen di dalam daftar Data_Parlemen telah diubah datanya sesuai dengan 
+          input yang benar.
+	*/
 	var ada bool = false
 	var idx int = -1
 	var nama string
@@ -443,6 +480,11 @@ func mengedit_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size i
 }
 
 func menghapus_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size *int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran *size yang menunjukkan 
+          jumlah calon anggota parlemen yang ada.
+		 F.S. Salah satu anggota parlemen di dalam daftar Data_Parlemen telah dihapus, dan ukuran *size 
+          berkurang satu jika penghapusan berhasil.
+	*/
 	var nama, id string
 	var ada bool = false
 	var idx int = -1
@@ -466,18 +508,24 @@ func menghapus_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size 
 }
 
 func swap_string(s1, s2 *string) {
+	//menukar nilai string
 	temp1 := *s1
 	*s1 = *s2
 	*s2 = temp1
 }
 
 func swap_int(s1, s2 *int) {
+	//menukar nilai int
 	temp2 := *s1
 	*s1 = *s2
 	*s2 = temp2
 }
 
 func menampilkan_data_terurut_berdasarkan_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size yang menunjukkan 
+          jumlah calon anggota parlemen yang ada.
+		 F.S. Data anggota parlemen ditampilkan di layar dalam urutan menurun berdasarkan jumlah suara yang 				    diperoleh.
+	*/
 	sort_suara(Data_Parlemen, size)
 	fmt.Printf("%-10s %-18s %-10s %-10s\n", "NAMA", "PARTAI", "SUARA", "ID")
 
@@ -487,8 +535,10 @@ func menampilkan_data_terurut_berdasarkan_suara(Data_Parlemen *DaftarCalonAnggot
 }
 
 func menampilkan_data_terurut_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size yang menunjukkan 	          jumlah calon anggota parlemen yang ada.
+		 F.S. Data anggota parlemen ditampilkan di layar dalam urutan naik berdasarkan nama.
+	*/
 	sort_nama(Data_Parlemen, size)
-	//fmt.Println(*Data_Parlemen, size)
 	fmt.Printf("%-10s %-18s %-10s %-10s\n", "NAMA", "PARTAI", "SUARA", "ID")
 	for k := 0; k < size; k++ {
 		fmt.Printf("%-10s %-18s %-10d %-10s\n", Data_Parlemen[k].nama, Data_Parlemen[k].partai, Data_Parlemen[k].suara, Data_Parlemen[k].id)
@@ -496,6 +546,9 @@ func menampilkan_data_terurut_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggota
 }
 
 func menampilkan_data_terurut_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size yang menunjukkan 	          jumlah calon anggota parlemen yang ada.
+		 F.S. Data anggota parlemen ditampilkan di layar dalam urutan naik berdasarkan partai.
+	*/
 	sort_partai(Data_Parlemen, size)
 	fmt.Printf("%-10s %-18s %-10s %-10s\n", "NAMA", "PARTAI", "SUARA", "ID")
 	for k := 0; k < size; k++ {
@@ -504,6 +557,9 @@ func menampilkan_data_terurut_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggo
 }
 
 func menampilkan_data_terurut_berdasarkan_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size yang menunjukkan 	          jumlah calon anggota parlemen yang ada.
+		 F.S. Data anggota parlemen ditampilkan di layar dalam urutan naik berdasarkan id.
+	*/
 	sort_id(Data_Parlemen, size)
 	fmt.Printf("%-10s %-18s %-10s %-10s\n", "NAMA", "PARTAI", "SUARA", "ID")
 	for k := 0; k < size; k++ {
@@ -512,6 +568,11 @@ func menampilkan_data_terurut_berdasarkan_id(Data_Parlemen *DaftarCalonAnggotaPa
 }
 
 func pencarian_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size yang menunjukkan 
+          jumlah calon anggota parlemen yang ada.
+    F.S. Data anggota parlemen yang sesuai dengan nama yang dicari ditampilkan di layar. Jika tidak 
+         ditemukan, ditampilkan pesan "Mohon maaf, data yang anda cari tidak dapat ditemukan".
+		*/
 	var nama_pencarian string
 	//var idx int = -1
 	var count int
@@ -539,6 +600,11 @@ func pencarian_berdasarkan_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size 
 }
 
 func pencarian_berdasarkan_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size yang menunjukkan 
+				jumlah calon anggota parlemen yang ada.
+	F.S. Data anggota parlemen yang sesuai dengan id yang dicari ditampilkan di layar. Jika tidak 
+			 ditemukan, ditampilkan pesan "Mohon maaf, data yang anda cari tidak dapat ditemukan".
+	*/
 	var id_pencarian string
 	var ada bool = false
 	var idx int = -1
@@ -568,8 +634,12 @@ func pencarian_berdasarkan_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 	}
 }
 
-
 func pencarian_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size yang menunjukkan 
+				jumlah calon anggota parlemen yang ada.
+	F.S. Data anggota parlemen yang sesuai dengan partai yang dicari ditampilkan di layar. Jika tidak 
+			 ditemukan, ditampilkan pesan "Maaf, partai yang anda cari tidak ada".
+	*/
 	var nama_pencarian string
 	var ada bool = false
 	sort_partai(Data_Parlemen, size)
@@ -588,6 +658,12 @@ func pencarian_berdasarkan_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, siz
 }
 
 func pencarian_berdasarkan_pemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, Data_pemilih DaftarPemilih, size_parlemen, size_pemilih int) {
+	/*I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size_parlemen yang 
+         menunjukkan jumlah calon anggota parlemen yang ada.
+			   Terdefinisi daftar pemilih (Data_pemilih) dengan ukuran size_pemilih yang menunjukkan jumlah 
+         pemilih yang ada.
+	F.S. Data anggota parlemen yang dipilih oleh pemilih ditampilkan di layar.
+	*/
 	var nama_pencarian string
 	var ada bool = false
 	fmt.Scan("Silahkan masukkan nama pemilih yang ingin anda cari")
@@ -609,6 +685,12 @@ func pencarian_berdasarkan_pemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, Da
 }
 
 func pencarian_berdasarkan_IDpemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, Data_pemilih DaftarPemilih, size_parlemen, size_pemilih int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size_parlemen yang 
+				 menunjukkan jumlah calon anggota parlemen yang ada.
+				 Terdefinisi daftar pemilih (Data_pemilih) dengan ukuran size_pemilih yang menunjukkan jumlah 
+				 pemilih yang ada.
+	   F.S. Data anggota parlemen yang dipilih oleh pemilih ditampilkan di layar.
+	*/
 	var nama_pencarian string
 	var ada bool = false
 	fmt.Println("Silahkan masukkan ID pemilih yang ingin anda cari")
@@ -630,6 +712,7 @@ func pencarian_berdasarkan_IDpemilih(Data_Parlemen *DaftarCalonAnggotaParlemen, 
 }
 
 func sort_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	// melakukan sorting berdasarkan nama dengan Selection Sort
 	var max_idx int
 	for i := 0; i < size-1; i++ {
 		max_idx = i
@@ -648,6 +731,7 @@ func sort_nama(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 }
 
 func sort_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	// melakukan sorting berdasarkan partai dengan Selection Sort
 	var max_idx int
 	for i := 0; i < size-1; i++ {
 		max_idx = i
@@ -667,6 +751,7 @@ func sort_partai(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 }
 
 func sort_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
+	// melakukan sorting berdasarkan suara dengan Selection Sort
 	var max_idx int
 	for i := 0; i < size-1; i++ {
 		max_idx = i
@@ -686,6 +771,7 @@ func sort_suara(Data_Parlemen *DaftarCalonAnggotaParlemen, size int) {
 }
 
 func sort_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
+	// melakukan sorting berdasarkan id dengan Insertion Sort
 	var j int
 	for i := 1; i < size; i++{
 		j = i
@@ -700,6 +786,12 @@ func sort_id(Data_Parlemen *DaftarCalonAnggotaParlemen, size int){
 }
 
 func kalkulasi_threshold_kandidat(Data_Parlemen *DaftarCalonAnggotaParlemen, size_parlemen, size_pemilih int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size_parlemen yang 
+          menunjukkan jumlah calon anggota parlemen yang ada.
+			    Terdefinisi ukuran (size_pemilih) yang menunjukkan jumlah pemilih yang ada.
+	   F.S. Menampilkan kandidat-kandidat yang memenuhi threshold suara yang dibutuhkan untuk lolos sebagai 
+          anggota parlemen dengan ambang batas di atas rata-rata.
+	*/
 	var rerata float64
 	sort_nama(Data_Parlemen, size_parlemen)
 	rerata = float64(size_pemilih) / float64(size_parlemen)
@@ -713,6 +805,13 @@ func kalkulasi_threshold_kandidat(Data_Parlemen *DaftarCalonAnggotaParlemen, siz
 }
 
 func menghapus_data_suara_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size_parlemen int, data_pemilih *DaftarPemilih, size_pemilih *int) {
+	/* I.S. Terdefinisi daftar calon anggota parlemen (Data_Parlemen) dengan ukuran size_parlemen yang 
+          menunjukkan jumlah calon anggota parlemen yang ada.
+			    Terdefinisi daftar pemilih (data_pemilih) dengan ukuran size_pemilih yang menunjukkan jumlah 
+          pemilih yang ada.
+	   F.S. Menghapus suara yang diberikan pemilih pada calon anggota parlemen, sehingga suara dari 
+          pemilih yang bersangkutan dihapus.
+	*/
 	var nama, id string
 	var ada bool = false
 	var idx int = -1
