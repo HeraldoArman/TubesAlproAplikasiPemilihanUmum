@@ -361,10 +361,11 @@ func memilih_anggota_parlemen(Data_Parlemen *DaftarCalonAnggotaParlemen, size in
 	jalan = waktu
 	if !jalan {
 		fmt.Println("Anda tidak sedang berada di masa pemilihan, Silahkan kembali saat masa pemilihan sedang berlangsung.")
+	} else{
+		fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih nama_kandidat_yang_dipilih id_pemilih' atau 'nama_pemilih id_kandidat_yang_dipilih id_pemilih'. jika sudah selesai memilih, silahkan ketik -1 -1 -1")
 	}
 	for jalan {
 		ada = false
-		fmt.Println("Silahkan masukkan pilihan anda dengan format 'nama_pemilih nama_kandidat_yang_dipilih id_pemilih' atau 'nama_pemilih id_kandidat_yang_dipilih id_pemilih'. jika sudah selesai memilih, silahkan ketik -1 -1 -1")
 		for !ada {
 			fmt.Scan(&nama1, &nama2, &id_pemilih)
 			if nama2 == "-1" || nama1 == "-1" || id_pemilih == "-1"{
