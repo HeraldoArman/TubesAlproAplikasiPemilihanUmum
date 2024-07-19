@@ -20,3 +20,4 @@ feri partai_biru 018
 maya partai_bunga 019
 reza partai_pohon 020
 ini_test_id_duplikat partai_salah 001
+ini_test_id_duplikat_kedia partai_ngaco 002
