@@ -48,6 +48,7 @@ type DaftarPemilih [NMAX]PemilihTetap
 
 /*
 	TODO Testing lebih lanjut
+ 	UDAH KELAR COY!!!!!
 */
 
 func main() {
